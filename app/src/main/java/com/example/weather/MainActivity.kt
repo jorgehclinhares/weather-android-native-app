@@ -1,12 +1,16 @@
 package com.example.weather
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,8 +18,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var weatherNameText : TextView
     lateinit var windSpeedText : TextView
     lateinit var humidityText : TextView
-    lateinit var rainChancesText: TextView
+    lateinit var dataText: TextView
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -25,7 +30,8 @@ class MainActivity : AppCompatActivity() {
         weatherNameText = findViewById(R.id.weather_name_text)
         windSpeedText = findViewById(R.id.wind_speed_text)
         humidityText = findViewById(R.id.humidity_text)
-        rainChancesText = findViewById(R.id.rain_chances_text)
+        dataText = findViewById(R.id.date_text)
+        dataText.text = getDateFormatted()
     }
 
     private fun requestWeatherInformation(location: String, key: String) {
@@ -38,11 +44,14 @@ class MainActivity : AppCompatActivity() {
                 val current = response.getJSONObject("current")
                 val condition = current.getJSONObject("condition")
 
-                temperatureText.text = current.getString("temp_c") + "º"
+                var temperatureFormated = current.getDouble("temp_c").toString().split('.')[0]
+                var windSpeedInKMH =  current.getDouble("wind_kph").toString()
+                var humidity = current.getString("humidity")
+
+                temperatureText.text = "${temperatureFormated}º"
                 weatherNameText.text = condition.getString("text")
-                windSpeedText.text = current.getString("wind_kph") + " km/h"
-                humidityText.text = current.getString("humidity") + '%'
-                rainChancesText.text = current.getString("pressure_in") + '%'
+                windSpeedText.text = "$windSpeedInKMH km/h"
+                humidityText.text = "${humidity}%"
             },
             { error ->
                 // TODO: Handle error
@@ -51,6 +60,21 @@ class MainActivity : AppCompatActivity() {
         )
 
         queue.add(jsonObjectRequest)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getDateFormatted(): String? {
+        val current = LocalDateTime.now()
+        val dayOfWeekFormatter = DateTimeFormatter.ofPattern("EEEE")
+        var dayOfWeek = current.format(dayOfWeekFormatter)
+        dayOfWeek = dayOfWeek.capitalize()
+
+        val dateFormatter = DateTimeFormatter.ofPattern("dd/MM")
+        var date = current.format(dateFormatter)
+        date = date.capitalize()
+
+        return "${dayOfWeek}, $date"
+
     }
 
 }

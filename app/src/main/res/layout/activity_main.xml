@@ -47,7 +47,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="29º"
             android:textColor="#FFFFFF"
             android:textSize="80sp"
             android:textStyle="bold" />
@@ -56,7 +55,6 @@
             android:id="@+id/weather_name_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nublado"
             android:textColor="#FAFD74"
             android:textSize="40sp"
             android:textStyle="normal" />
@@ -65,7 +63,6 @@
             android:id="@+id/date_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Quinta-feira, 14/07"
             android:textColor="#E8E8E8"
             android:textSize="12sp" />
 
@@ -99,7 +96,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="13 km/h"
                     android:textColor="#E5E5E5" />
 
                 <TextView
@@ -126,7 +122,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="24%"
                     android:textColor="#E5E5E5" />
 
                 <TextView
@@ -137,32 +132,6 @@
                     android:textColor="#E5E5E5B3" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="@integer/material_motion_duration_long_1">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_rain"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:id="@+id/rain_chances_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="82%"
-                    android:textColor="#E5E5E5" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Chance de chuva"
-                    android:textColor="#E5E5E5B3" />
-            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
